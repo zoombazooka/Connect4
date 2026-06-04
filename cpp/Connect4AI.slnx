@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Connect4AI/Connect4AI.vcxproj" Id="7b605208-397a-4af4-b700-f6ec6d4c5ded" />
+</Solution>
