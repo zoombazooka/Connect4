@@ -56,7 +56,7 @@ class AI(Player):
         beta = 1000000
         for col in possible_cols:
             pos = board.place_piece(col, self.symbol)
-            score = self.minimax(board, is_maxing=False, depth=0, max_depth=6, last_pos=pos, alpha=alpha, beta=beta)
+            score = self.minimax(board, is_maxing=False, depth=0, max_depth=4, last_pos=pos, alpha=alpha, beta=beta)
             board.remove_piece(pos)
             if score > highest_score:
                 highest_score = score
