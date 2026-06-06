@@ -17,23 +17,35 @@ void Game::switchTurn()
 	currentPlayer = currentPlayer == players[0] ? currentPlayer = players[1] : currentPlayer = players[0];
 }
 
+// Getters
+bool Game::getIsGameOver() const
+{
+	return isGameOver;
+}
+
+Player* Game::getCurrentPlayer() const
+{
+	return currentPlayer;
+}
+
+Position Game::getLastMove() const
+{
+	return lastMove;
+}
+
 bool Game::isColValid(int col) const
 {
 	return col >= 0 && col <= Board::COLS;
 }
 
-std::expected<bool, std::string> Game::playMove(int col)
+std::expected<int, std::string> Game::playMove(int col)
 {
-	if (!isColValid(col))
-	{
-		return std::unexpected("Invalid column index! please input 0-6");
-	}
 	if (board->isColumnFull(col))
 	{
-		return std::unexpected("Column is full! choose a different one!");
+		return std::unexpected("Column is full! choose a different one!\n");
 	}
 	lastMove = board->placePiece(col, currentPlayer->getSymbol());
-	return true;
+	return col;
 }
 
 bool Game::checkWin() const
@@ -52,13 +64,13 @@ void Game::printResults()
 	if (checkWin())
 	{
 		isGameOver = true;
-		std::cout << currentPlayer->getName() << "(" << currentPlayer->getSymbol() << ") Won!GG!" << std::endl;
+		std::cout << currentPlayer->getName() << "(" << currentPlayer->getSymbol() << ") Won!GG!\n\n" << std::endl;
 		return;
 	}
 	if (checkDraw())
 	{
 		isGameOver = true;
-		std::cout << "It's a draw! GG!" << std::endl;
+		std::cout << "It's a draw! GG!\n\n" << std::endl;
 		return;
 	}
 }
