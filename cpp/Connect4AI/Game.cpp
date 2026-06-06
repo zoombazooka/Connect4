@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include <expected>
+#include <iostream>
 
 Game::Game(Player player1, Player player2)
 	: isGameOver(false), board(new Board), currentPlayer(&player1), lastMove(NULL, NULL)
@@ -44,3 +45,21 @@ bool Game::checkDraw() const
 {
 	return board->isBoardFull();
 }
+
+
+void Game::printResults()
+{
+	if (checkWin())
+	{
+		isGameOver = true;
+		std::cout << currentPlayer->getName() << "(" << currentPlayer->getSymbol() << ") Won!GG!" << std::endl;
+		return;
+	}
+	if (checkDraw())
+	{
+		isGameOver = true;
+		std::cout << "It's a draw! GG!" << std::endl;
+		return;
+	}
+}
+	
