@@ -5,6 +5,8 @@ class Board
 {
 private:
 	char state[6][7]; // 6 rows and 7 columns
+
+public:
 	static constexpr int ROWS = 5;
 	static constexpr int COLS = 6;
 

@@ -14,3 +14,8 @@ void Game::switchTurn()
 {
 	currrentPlayer = currrentPlayer == &players[0] ? currrentPlayer = &players[1] : currrentPlayer = &players[0];
 }
+
+bool Game::isColValid(int col) const
+{
+	return col >= 0 && col <= Board::COLS;
+}
