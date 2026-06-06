@@ -15,7 +15,7 @@ public:
 
 	void displayBoard() const;
 
-	int placePiece(const int col, const char symbol);
+	Position placePiece(const int col, const char symbol);
 
 	void removePiece(const Position pos);
 

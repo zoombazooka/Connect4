@@ -29,17 +29,19 @@ void Board::displayBoard() const
 	std::cout << "  0   1   2   3   4   5   6 \n\n\n"; // Column indices
 }
 
-int Board::placePiece(const int col, const char symbol)
+Position Board::placePiece(const int col, const char symbol)
 {
+	Position pos{ NULL, NULL };
 	for (int row = 0; row <= ROWS; row++)
 	{
 		if (state[row][col] == ' ')
 		{
 			state[row][col] = symbol;
-			return row; // Return the row where the piece was placed
+			pos = { row, col };
+			return pos; // Return the row where the piece was placed
 		}
 	}
-	return -1; // Column is full
+	return pos; // Column is full
 }
 
 void Board::removePiece(const Position pos)

@@ -2,6 +2,7 @@
 #include "Types.h"
 #include "Player.h"
 #include "Board.h"
+#include <expected>
 
 class Game
 {
@@ -15,9 +16,10 @@ public:
 	Game(Player player1, Player player2);
 	void switchTurn();
 	bool isColValid(int col) const;
-	bool playMove(int col);
+	std::expected<bool, std::string> playMove(int col);
 	bool checkWin() const;
 	bool checkDraw() const;
 	void printResults();
+	
 
 };

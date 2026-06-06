@@ -9,6 +9,8 @@ private:
 public:
 	Player();
 	Player(const char newSymbol, std::string newName);
+	char getSymbol() const;
+	const std::string getName() const;
 	virtual int getMove() const;
 };
 

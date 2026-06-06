@@ -10,3 +10,12 @@ Player::Player(const char newSymbol, std::string newName)
 	symbol = newSymbol;
 	name = newName;
 }
+
+char Player::getSymbol() const
+{
+	return symbol;
+}
+const std::string Player::getName() const
+{
+	return name;
+}
