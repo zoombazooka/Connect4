@@ -10,7 +10,7 @@ private:
 	bool isGameOver;
 	Board* board;
 	Player players[2];
-	Player* currrentPlayer;
+	Player* currentPlayer;
 	Position lastMove;
 public:
 	Game(Player player1, Player player2);
