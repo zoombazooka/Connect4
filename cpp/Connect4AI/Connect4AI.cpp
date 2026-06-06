@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
 #include "board.h"
+#include "HumanPlayer.h"
+#include "Game.h"
 
 int main()
 {

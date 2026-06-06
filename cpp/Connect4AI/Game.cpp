@@ -4,8 +4,8 @@
 #include <expected>
 #include <iostream>
 
-Game::Game(Player player1, Player player2)
-	: isGameOver(false), board(new Board), currentPlayer(&player1), lastMove(NULL, NULL)
+Game::Game(Player* player1, Player* player2)
+	: isGameOver(false), board(new Board), currentPlayer(player1), lastMove(NULL, NULL)
 {
 	players[0] = player1;
 	players[1] = player2;
@@ -14,7 +14,7 @@ Game::Game(Player player1, Player player2)
 
 void Game::switchTurn()
 {
-	currentPlayer = currentPlayer == &players[0] ? currentPlayer = &players[1] : currentPlayer = &players[0];
+	currentPlayer = currentPlayer == players[0] ? currentPlayer = players[1] : currentPlayer = players[0];
 }
 
 bool Game::isColValid(int col) const
