@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "board.h"
+#include "Board.h"
 #include "HumanPlayer.h"
 #include "Game.h"
 
@@ -22,7 +22,7 @@ int main()
             std::cout << result.error() << std::endl;
             continue;
         }
-        mygame.printResults();
+        mygame.evaluateEndOfGame();
         mygame.switchTurn();
     }
     mygame.board->displayBoard();

@@ -15,6 +15,7 @@ public:
 	Player* players[2];
 public:
 	Game(Player* player1, Player* player2);
+	~Game();
 
 	// Getters
 	bool getIsGameOver() const;
@@ -26,7 +27,7 @@ public:
 	std::expected<int, std::string> playMove(int col);
 	bool checkWin() const;
 	bool checkDraw() const;
-	void printResults();
+	void evaluateEndOfGame();
 	
 
 };

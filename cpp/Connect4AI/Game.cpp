@@ -5,16 +5,21 @@
 #include <iostream>
 
 Game::Game(Player* player1, Player* player2)
-	: isGameOver(false), board(new Board), currentPlayer(player1), lastMove(NULL, NULL)
+	: isGameOver(false), board(new Board), currentPlayer(player1), lastMove(-1, -1)
 {
 	players[0] = player1;
 	players[1] = player2;
 }
 
+Game::~Game()
+{
+	delete board;
+}
+
 
 void Game::switchTurn()
 {
-	currentPlayer = currentPlayer == players[0] ? currentPlayer = players[1] : currentPlayer = players[0];
+	currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
 }
 
 // Getters
@@ -35,7 +40,7 @@ Position Game::getLastMove() const
 
 bool Game::isColValid(int col) const
 {
-	return col >= 0 && col <= Board::COLS;
+	return col >= 0 && col < Board::COLS;
 }
 
 std::expected<int, std::string> Game::playMove(int col)
@@ -59,7 +64,7 @@ bool Game::checkDraw() const
 }
 
 
-void Game::printResults()
+void Game::evaluateEndOfGame()
 {
 	if (checkWin())
 	{

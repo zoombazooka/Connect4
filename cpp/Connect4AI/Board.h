@@ -1,5 +1,6 @@
 #pragma once
 #include "Types.h"
+#include <optional>
 
 class Board
 {
@@ -7,8 +8,8 @@ private:
 	char state[6][7]; // 6 rows and 7 columns
 
 public:
-	static constexpr int ROWS = 5;
-	static constexpr int COLS = 6;
+	static constexpr int ROWS = 6;
+	static constexpr int COLS = 7;
 
 public:
 	Board();
@@ -29,5 +30,5 @@ public:
 
 	bool is4InARow(const Position pos, const char symbol) const;
 
-	char* const getWindow(const Position startPos, const Direction direction) const;
+	std::optional<std::array<char, 4>> getWindow(const Position startPos, const Direction direction) const;
 };

@@ -1,13 +1,15 @@
 #include <iostream>
+#include <array>
 #include "Types.h"
 #include "Board.h"
+#include <optional>
 
 
 Board::Board()
 {
-	for (int i = 0; i <= ROWS; i++)
+	for (int i = 0; i < ROWS; i++)
 	{
-		for (int j = 0; j <= COLS; j++)
+		for (int j = 0; j < COLS; j++)
 		{
 			state[i][j] = ' '; // Initialize all cells to empty
 		}
@@ -16,10 +18,10 @@ Board::Board()
 
 void Board::displayBoard() const
 {
-	for (int i = ROWS; i >= 0; i--)
+	for (int i = ROWS - 1; i >= 0; i--)
 	{
 		std::cout << "| ";
-		for (int j = 0; j <= COLS; j++)
+		for (int j = 0; j < COLS; j++)
 		{
 			std::cout << state[i][j] << " | ";
 		}
@@ -31,8 +33,8 @@ void Board::displayBoard() const
 
 Position Board::placePiece(const int col, const char symbol)
 {
-	Position pos{ NULL, NULL };
-	for (int row = 0; row <= ROWS; row++)
+	Position pos{-1, -1};
+	for (int row = 0; row < ROWS; row++)
 	{
 		if (state[row][col] == ' ')
 		{
@@ -54,17 +56,17 @@ void Board::removePiece(const Position pos)
 
 bool Board::isColumnFull(const int col) const
 {
-	return state[ROWS][col] != ' ';
+	return state[ROWS-1][col] != ' ';
 }
 
 bool Board::isPosValid(const Position pos) const
 {
-	return pos.row >= 0 && pos.row <= ROWS && pos.col >= 0 && pos.col <= COLS;
+	return pos.row >= 0 && pos.row < ROWS && pos.col >= 0 && pos.col < COLS;
 }
 
 bool Board::isBoardFull() const
 {
-	for (int col = 0; col <= COLS; col++)
+	for (int col = 0; col < COLS; col++)
 	{
 		if (!isColumnFull(col))
 		{
@@ -106,20 +108,22 @@ bool Board::is4InARow(const Position pos, const char symbol) const
 }
 
 
-char* const Board::getWindow(const Position startPos, const Direction direction) const
+std::optional<std::array<char, 4>> Board::getWindow(const Position startPos, const Direction direction) const
 {
 	const int windowSize = 4; // We want a window of 4 positions
-	Position currentPos{.row = startPos.row, .col = startPos.col };
-	char* window = new char[windowSize]; // 4 positions in the window
+	Position currentPos{.row = startPos.row + (direction.rowDelta * 4), .col = startPos.col + (direction.colDelta * 4) }; // farthest position for checking validation of window
+	std::array<char, 4> window {0}; // 4 positions in the window
+	if (!isPosValid(currentPos))
+	{
+		return std::nullopt;
+	}
+	currentPos.row = startPos.row;
+	currentPos.col = startPos.col;
 	for (int i = 0; i < windowSize; i++)
 	{
-		if (!isPosValid(currentPos))
-		{
-			return nullptr; // Return null pointer if the window goes out of bounds
-		}
 		window[i] = state[currentPos.row][currentPos.col];
-		currentPos.row += direction.rowDelta; // update col
-		currentPos.col += direction.colDelta; // update row
+		currentPos.row += direction.rowDelta; // update row
+		currentPos.col += direction.colDelta; // update col
 	}
 	return window; // Return pointer to the first element of the window
 }
