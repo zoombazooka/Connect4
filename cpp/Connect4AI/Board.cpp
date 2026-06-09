@@ -5,7 +5,7 @@
 #include "Board.h"
 #include <optional>
 
-
+// init board state with spaces
 Board::Board()
 {
 	for (int i = 0; i < ROWS; i++)
@@ -16,6 +16,7 @@ Board::Board()
 		}
 	}
 }
+
 
 void Board::displayBoard() const
 {
@@ -121,7 +122,6 @@ bool Board::is4InARow(const Position pos, const char symbol) const
 
 std::optional<std::array<char, 4>> Board::getWindow(const Position startPos, const Direction direction) const
 {
-	// We want a window of 4 positions
 	Position currentPos{.row = startPos.row + (direction.rowDelta * 3), .col = startPos.col + (direction.colDelta * 3) }; // farthest position for checking validation of window
 	std::array<char, 4> window {0}; // 4 positions in the window
 	if (!isPosValid(currentPos))
@@ -136,5 +136,5 @@ std::optional<std::array<char, 4>> Board::getWindow(const Position startPos, con
 		currentPos.row += direction.rowDelta; // update row
 		currentPos.col += direction.colDelta; // update col
 	}
-	return window; // Return pointer to the first element of the window
+	return window; // Return window
 }

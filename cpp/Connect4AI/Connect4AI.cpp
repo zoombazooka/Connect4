@@ -13,7 +13,7 @@ int main()
     Game mygame(&player1, &player2);
     while (!mygame.getIsGameOver())
     {
-        mygame.board.displayBoard();
+        mygame.displayBoard();
         column = mygame.getCurrentPlayer()->getMove();
 
         auto result = mygame.playMove(column);
@@ -25,5 +25,5 @@ int main()
         mygame.evaluateEndOfGame();
         mygame.switchTurn();
     }
-    mygame.board.displayBoard();
+    mygame.displayBoard();
 }

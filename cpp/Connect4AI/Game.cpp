@@ -38,6 +38,11 @@ Position Game::getLastMove() const
 	return lastMove;
 }
 
+void Game::displayBoard() const
+{
+	board.displayBoard();
+}
+
 bool Game::isColValid(int col) const
 {
 	return col >= 0 && col < Board::COLS;
@@ -55,6 +60,10 @@ std::expected<int, std::string> Game::playMove(int col)
 	}
 	Position res = board.placePiece(col, currentPlayer->getSymbol());
 	lastMove = res == Position{ -1, -1 } ? lastMove : res;
+	if (lastMove == Position{ -1, -1 })
+	{
+		return std::unexpected("unexpected error\n");
+	}
 	return col;
 }
 

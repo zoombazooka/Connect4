@@ -7,14 +7,11 @@
 
 class Game
 {
-public:
-	std::array<Player*, 2> players;
 private:
+	std::array<Player*, 2> players;
 	Player* currentPlayer;
 	Position lastMove;
-public:
 	Board board;
-private:
 	bool isGameOver;
 public:
 	Game(Player* player1, Player* player2);
@@ -25,6 +22,7 @@ public:
 	Player* getCurrentPlayer() const;
 	Position getLastMove() const;
 
+	void displayBoard() const;
 	void switchTurn();
 	bool isColValid(int col) const;
 	std::expected<int, std::string> playMove(int col);
