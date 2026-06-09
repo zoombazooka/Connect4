@@ -5,7 +5,7 @@
 #include <iostream>
 
 Game::Game(Player* player1, Player* player2)
-	: isGameOver(false), board(new Board), currentPlayer(player1), lastMove(-1, -1)
+	: currentPlayer(player1), lastMove(-1, -1), board(Board()), isGameOver(false)
 {
 	players[0] = player1;
 	players[1] = player2;
@@ -13,7 +13,7 @@ Game::Game(Player* player1, Player* player2)
 
 Game::~Game()
 {
-	delete board;
+	std::cout << "game ended!";
 }
 
 
@@ -45,22 +45,27 @@ bool Game::isColValid(int col) const
 
 std::expected<int, std::string> Game::playMove(int col)
 {
-	if (board->isColumnFull(col))
+	if (!isColValid(col))
+	{
+		return std::unexpected("Invalid Column! only 0-6!\n");
+	}
+	if (board.isColumnFull(col))
 	{
 		return std::unexpected("Column is full! choose a different one!\n");
 	}
-	lastMove = board->placePiece(col, currentPlayer->getSymbol());
+	Position res = board.placePiece(col, currentPlayer->getSymbol());
+	lastMove = res == Position{ -1, -1 } ? lastMove : res;
 	return col;
 }
 
 bool Game::checkWin() const
 {
-	return board->is4InARow(lastMove, currentPlayer->getSymbol());
+	return board.is4InARow(lastMove, currentPlayer->getSymbol());
 }
 
 bool Game::checkDraw() const
 {
-	return board->isBoardFull();
+	return board.isBoardFull();
 }
 
 

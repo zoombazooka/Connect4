@@ -16,6 +16,8 @@ public:
 
 	void displayBoard() const;
 
+	bool isColValid(int col) const;
+
 	Position placePiece(const int col, const char symbol);
 
 	void removePiece(const Position pos);

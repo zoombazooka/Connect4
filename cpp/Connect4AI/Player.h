@@ -4,8 +4,8 @@
 class Player
 {
 private:
-	char symbol;
 	std::string name;
+	char symbol;
 
 public:
 	Player();

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <array>
+#include <cassert>
 #include "Types.h"
 #include "Board.h"
 #include <optional>
@@ -31,9 +32,18 @@ void Board::displayBoard() const
 	std::cout << "  0   1   2   3   4   5   6 \n\n\n"; // Column indices
 }
 
+bool Board::isColValid(int col) const
+{
+	return (col < COLS && col >= 0);
+}
+
 Position Board::placePiece(const int col, const char symbol)
 {
 	Position pos{-1, -1};
+	if (!isColValid(col) || isColumnFull(col))
+	{
+		return pos;
+	}
 	for (int row = 0; row < ROWS; row++)
 	{
 		if (state[row][col] == ' ')
@@ -43,7 +53,7 @@ Position Board::placePiece(const int col, const char symbol)
 			return pos; // Return the row where the piece was placed
 		}
 	}
-	return pos; // Column is full
+	return Position{ -1, -1 };
 }
 
 void Board::removePiece(const Position pos)
@@ -56,6 +66,7 @@ void Board::removePiece(const Position pos)
 
 bool Board::isColumnFull(const int col) const
 {
+	assert(col >= 0 && col < COLS);
 	return state[ROWS-1][col] != ' ';
 }
 
@@ -110,8 +121,8 @@ bool Board::is4InARow(const Position pos, const char symbol) const
 
 std::optional<std::array<char, 4>> Board::getWindow(const Position startPos, const Direction direction) const
 {
-	const int windowSize = 4; // We want a window of 4 positions
-	Position currentPos{.row = startPos.row + (direction.rowDelta * 4), .col = startPos.col + (direction.colDelta * 4) }; // farthest position for checking validation of window
+	// We want a window of 4 positions
+	Position currentPos{.row = startPos.row + (direction.rowDelta * 3), .col = startPos.col + (direction.colDelta * 3) }; // farthest position for checking validation of window
 	std::array<char, 4> window {0}; // 4 positions in the window
 	if (!isPosValid(currentPos))
 	{
@@ -119,7 +130,7 @@ std::optional<std::array<char, 4>> Board::getWindow(const Position startPos, con
 	}
 	currentPos.row = startPos.row;
 	currentPos.col = startPos.col;
-	for (int i = 0; i < windowSize; i++)
+	for (size_t i = 0; i < window.size(); i++)
 	{
 		window[i] = state[currentPos.row][currentPos.col];
 		currentPos.row += direction.rowDelta; // update row

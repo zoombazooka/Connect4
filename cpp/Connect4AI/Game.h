@@ -3,16 +3,19 @@
 #include "Player.h"
 #include "Board.h"
 #include <expected>
+#include <array>
 
 class Game
 {
+public:
+	std::array<Player*, 2> players;
 private:
-	bool isGameOver;
 	Player* currentPlayer;
 	Position lastMove;
 public:
-	Board* board;
-	Player* players[2];
+	Board board;
+private:
+	bool isGameOver;
 public:
 	Game(Player* player1, Player* player2);
 	~Game();
