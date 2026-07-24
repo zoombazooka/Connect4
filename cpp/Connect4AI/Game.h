@@ -25,7 +25,7 @@ public:
 	void displayBoard() const;
 	void switchTurn();
 	bool isColValid(int col) const;
-	std::expected<int, std::string> playMove(int col);
+	std::optional<int> playMove(int col);
 	bool checkWin() const;
 	bool checkDraw() const;
 	void evaluateEndOfGame();

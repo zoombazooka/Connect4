@@ -1,4 +1,1 @@
-class AI
-{
-
-};
+#include "AI.h"

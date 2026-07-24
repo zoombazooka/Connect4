@@ -19,7 +19,6 @@ int main()
         auto result = mygame.playMove(column);
         if (!result)
         {
-            std::cout << result.error() << std::endl;
             continue;
         }
         mygame.evaluateEndOfGame();
